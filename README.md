@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AppTrackr — Job Application Tracker
 
-## Getting Started
+A full-stack SaaS web application for tracking job applications, built with Next.js 14, TypeScript, Prisma, and PostgreSQL.
 
-First, run the development server:
+## Features
+- Secure user registration and login with NextAuth.js (JWT)
+- Add, edit, and delete job applications
+- Track status: Applied, Screening, Interview, Offer, Rejected, Withdrawn
+- Dashboard with live stats — total applications, interviews, offers, rejections
+- Filter applications by status
+- Fully responsive dark UI built with Tailwind CSS
 
+## Tech Stack
+Next.js 14 | TypeScript | Prisma ORM | PostgreSQL | NextAuth.js | Tailwind CSS | Docker
+
+## Project Structure
+apptrackr/
+├── app/
+│ ├── (auth)/login/ # Login page
+│ ├── (auth)/register/ # Register page
+│ ├── api/applications/ # REST API — CRUD
+│ ├── api/auth/ # NextAuth handler
+│ ├── api/register/ # User registration API
+│ └── dashboard/ # Protected dashboard
+├── lib/prisma.ts # Prisma client singleton
+├── prisma/schema.prisma # Database schema
+├── types/index.ts # Shared TypeScript types
+├── auth.ts # NextAuth configuration
+└── middleware.ts # Route protection
+
+
+## How to Run
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   git clone https://github.com/LoloM-19/apptrackr.git
+   cd apptrackr
 ```
+2. Install dependencies:
+```bash
+   npm install
+```
+3. Set up environment variables — create a `.env` file:
+DATABASE_URL="postgresql://apptrackr:apptrackr123@localhost:5432/apptrackr"
+NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_URL="http://localhost:3000"
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Start PostgreSQL:
+```bash
+   docker compose up postgres -d
+```
+5. Run database migrations:
+```bash
+   npx prisma@5.22.0 migrate dev
+```
+6. Start the app:
+```bash
+   npm run dev
+```
+7. Open **http://localhost:3000**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
+Next.js | TypeScript | Prisma | PostgreSQL | NextAuth.js | Tailwind CSS | Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
